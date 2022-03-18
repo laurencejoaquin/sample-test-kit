@@ -18,6 +18,7 @@ export default function TabOneScreen() {
   return (
     
     <PaperProvider>
+
     <View
       style={{
         flex: 1,
@@ -31,11 +32,13 @@ export default function TabOneScreen() {
           <Text>Success</Text>
         </Modal>
       </Portal>
+
       <Portal>
         <Modal visible={fVisible} onDismiss={hideModalF} contentContainerStyle={containerStyle}>
           <Text>Failed</Text>
         </Modal>
       </Portal>
+
       <View style={{
         flex: 1,
       }}>
@@ -48,6 +51,7 @@ export default function TabOneScreen() {
           }}
         />
       </View>
+
       <View style={{
         flex: 1,
       }}>
@@ -78,6 +82,7 @@ export default function TabOneScreen() {
               marginTop:20}}
           />
         </View>
+        
         <View style={{
           flex: 0,
         }}>
@@ -94,13 +99,15 @@ export default function TabOneScreen() {
             }}>
               Login
             </Button>
+
           </View>
+
         </View>
-              
-          
 
       </View>
+
     </View>
+
     </PaperProvider>
   );
 }
