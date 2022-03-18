@@ -1,9 +1,23 @@
 import React from "react";
 import { View, Image, Text, Dimensions } from "react-native";
 import LottieView from 'lottie-react-native';
+import { Provider as PaperProvider, TextInput, Button, Portal, Modal} from 'react-native-paper';
 
 export default function TabOneScreen() {
+  const [username, inputUsername] = React.useState("");
+  const [password, inputPassword] = React.useState("");
+  const [sVisible, setsVisible] = React.useState(false);
+  const [fVisible, setfVisible] = React.useState(false);
+  const showModal = () => setsVisible(true);
+  const hideModal = () => setsVisible(false);
+  const showModalF = () => setfVisible(true);
+  const hideModalF = () => setfVisible(false);
+  
+  const containerStyle = {backgroundColor: 'white', padding: 20}
+
   return (
+    
+    <PaperProvider>
     <View
       style={{
         flex: 1,
@@ -12,11 +26,21 @@ export default function TabOneScreen() {
         paddingHorizontal: 20
       }}
     >
+      <Portal>
+        <Modal visible={sVisible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+          <Text>Success</Text>
+        </Modal>
+      </Portal>
+      <Portal>
+        <Modal visible={fVisible} onDismiss={hideModalF} contentContainerStyle={containerStyle}>
+          <Text>Failed</Text>
+        </Modal>
+      </Portal>
       <View style={{
         flex: 1,
       }}>
         <LottieView
-          source={require('../assets/lottie/39476-login-screen.json')}
+          source={require('../assets/lottie/47759-process-cellphone-error.json')}
           autoPlay={true}
           loop={true}
           style={{
@@ -30,35 +54,29 @@ export default function TabOneScreen() {
         <View style={{
           flex: 0
         }}>
-          <Text>
-            Email
-          </Text>
-          <View style={{
-            height: 50,
-            width: '100%',
-            marginBottom: 20,
-            borderWidth: 1,
-            borderRadius: 10
-          }}>
-
-          </View>
+          <TextInput
+            mode="outlined"
+            label="Email"
+            value={username}
+            onChangeText={newUsername => inputUsername(newUsername)}
+            autoComplete = {false}
+          />
         </View>
 
         <View style={{
           flex: 0,
           marginBottom: 40
         }}>
-          <Text>
-            Password
-          </Text>
-          <View style={{
-            height: 50,
-            width: '100%',
-            borderWidth: 1,
-            borderRadius: 10
-          }}>
-
-          </View>
+          <TextInput
+            mode="outlined"
+            label="Password"
+            value={password}
+            secureTextEntry={true}
+            onChangeText={newPassword => inputPassword(newPassword)}
+            autoComplete = {false}
+            style={{
+              marginTop:20}}
+          />
         </View>
         <View style={{
           flex: 0,
@@ -67,39 +85,22 @@ export default function TabOneScreen() {
           <View style={{
             flex: 0
           }}>
-            <View style={{
-              height: 50,
-              width: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 10,
-              backgroundColor: '#2381EE'
+            <Button mode="outlined" onPress={() => {
+              if(username === "admin" && password === "password"){
+              showModal();
+              } else{
+                showModalF();
+              }
             }}>
-              <Text style={{
-                fontSize: 18,
-                color: '#fff'
-              }}>
-                Submit
-              </Text>
-            </View>
+              Login
+            </Button>
           </View>
         </View>
+              
+          
 
       </View>
-      <View style={{
-        height: 50,
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-        paddingBottom: 20
-      }}>
-        <Text style={{
-          fontSize: 18
-        }}>
-          Create an account?
-        </Text>
-      </View>
     </View>
+    </PaperProvider>
   );
 }
